@@ -1,0 +1,104 @@
+{
+  "drugs": [
+    {
+      "id": "1",
+      "name": "Aspirin",
+      "class": "NSAID / Antiplatelet",
+      "standard_dosage": "81mg - 325mg daily",
+      "description": "Used to reduce pain, fever, or inflammation and as a blood thinner."
+    },
+    {
+      "id": "2",
+      "name": "Warfarin",
+      "class": "Anticoagulant",
+      "standard_dosage": "2mg - 10mg daily",
+      "description": "Blood thinner used to prevent blood clots."
+    },
+    {
+      "id": "3",
+      "name": "Ibuprofen",
+      "class": "NSAID",
+      "standard_dosage": "200mg - 800mg every 6-8 hours",
+      "description": "Used for pain relief and reducing inflammation."
+    },
+    {
+      "id": "4",
+      "name": "Lisinopril",
+      "class": "ACE Inhibitor",
+      "standard_dosage": "10mg - 40mg daily",
+      "description": "Used to treat high blood pressure and heart failure."
+    },
+    {
+      "id": "5",
+      "name": "Simvastatin",
+      "class": "Statin",
+      "standard_dosage": "10mg - 40mg evening",
+      "description": "Used to lower cholesterol and prevent cardiovascular disease."
+    },
+    {
+      "id": "6",
+      "name": "Metformin",
+      "class": "Biguanide",
+      "standard_dosage": "500mg - 2000mg daily",
+      "description": "First-line medication for the treatment of type 2 diabetes."
+    },
+    {
+      "id": "7",
+      "name": "Spironolactone",
+      "class": "Potassium-sparing diuretic",
+      "standard_dosage": "25mg - 100mg daily",
+      "description": "Used to treat fluid build-up and high blood pressure."
+    },
+    {
+      "id": "8",
+      "name": "Digoxin",
+      "class": "Cardiac glycoside",
+      "standard_dosage": "0.125mg - 0.25mg daily",
+      "description": "Used to treat heart failure and certain heart rhythm problems."
+    }
+  ],
+  "interactions": [
+    {
+      "source": "1",
+      "target": "2",
+      "severity": "Severe",
+      "description": "Increased risk of major bleeding. Monitor INR closely.",
+      "mechanism": "Pharmacodynamic synergism (antiplatelet + anticoagulant)."
+    },
+    {
+      "source": "3",
+      "target": "2",
+      "severity": "Severe",
+      "description": "Significantly increases bleeding risk. Avoid if possible.",
+      "mechanism": "Pharmacodynamic synergism and GI mucosal injury."
+    },
+    {
+      "source": "1",
+      "target": "3",
+      "severity": "Moderate",
+      "description": "NSAID duplication. Ibuprofen may also interfere with Aspirin's antiplatelet effect.",
+      "mechanism": "Competitive inhibition of COX-1."
+    },
+    {
+      "source": "4",
+      "target": "7",
+      "severity": "Severe",
+      "description": "Risk of life-threatening hyperkalemia (high potassium).",
+      "mechanism": "Additive potassium-retaining effects."
+    },
+    {
+      "source": "8",
+      "target": "7",
+      "severity": "Moderate",
+      "description": "Spironolactone may decrease renal clearance of Digoxin.",
+      "mechanism": "Interference with tubular secretion."
+    },
+    {
+      "source": "5",
+      "target": "2",
+      "severity": "Moderate",
+      "description": "Simvastatin may slightly increase the anticoagulant effect of Warfarin.",
+      "mechanism": "Inhibition of CYP3A4-mediated metabolism of Warfarin (minor)."
+    }
+  ]
+}

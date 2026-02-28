@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  background-color: #f8fafc;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+}
+
+/* Custom React Flow styling */
+.react-flow__node {
+  @apply rounded-lg shadow-sm border bg-white p-4 transition-all;
+}
+
+.react-flow__node:hover {
+  @apply shadow-md scale-105;
+}
+
+.react-flow__handle {
+  @apply w-2 h-2 bg-clinical-400;
+}
+
+.react-flow__edge-path {
+  @apply stroke-clinical-300 stroke-2;
+}
