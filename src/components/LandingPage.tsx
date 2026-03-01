@@ -30,9 +30,12 @@ export const LandingPage = () => {
         ref={splineRef} 
         className="absolute inset-0 z-0 flex items-center justify-center opacity-60"
       >
-        <Spline 
-          scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" 
-        />
+        <div className="w-full h-full bg-slate-900/50 backdrop-blur-3xl" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Spline 
+            scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" 
+          />
+        </div>
       </div>
 
       {/* Hero Content */}
