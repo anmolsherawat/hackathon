@@ -3,26 +3,11 @@ import { Pill, ShieldCheck, Activity, Info, AlertCircle, RefreshCw } from 'lucid
 import { DrugSearch } from '@/components/DrugSearch';
 import { DrugGraph } from '@/components/DrugGraph';
 import { InteractionList } from '@/components/InteractionList';
+import { LandingPage } from '@/components/LandingPage';
 import { useInteractionLogic } from '@/hooks/useInteractionLogic';
 import type { Drug, Interaction } from '@/types';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-
-// Lazy load Clerk-dependent components to prevent initialization errors if key is missing
-const LandingPage = React.lazy(() => import('@/components/LandingPage').then(m => ({ default: m.LandingPage })));
-const ClerkAuth = React.lazy(() => import('@clerk/clerk-react').then(m => ({ 
-  default: ({ children, hasClerkKey }: { children: React.ReactNode, hasClerkKey: boolean }) => {
-    const { SignedIn, SignedOut, UserButton } = m;
-    if (!hasClerkKey) return <>{children}</>;
-    return (
-      <>
-        <SignedOut><LandingPage /></SignedOut>
-        <SignedIn>{children}</SignedIn>
-      </>
-    );
-  }
-})));
-
-const UserButtonWrapper = React.lazy(() => import('@clerk/clerk-react').then(m => ({ default: m.UserButton })));
+import { motion, AnimatePresence } from 'framer-motion';
 
 console.log("App: Import phase complete.");
 
@@ -83,7 +68,6 @@ interface DashboardProps {
   handleAddDrug: (drug: Drug) => void;
   handleRemoveDrug: (drugId: string) => void;
   interactionState: any;
-  hasClerkKey: boolean;
 }
 
 const Dashboard = ({ 
@@ -93,8 +77,7 @@ const Dashboard = ({
   setSelectedInteraction,
   handleAddDrug,
   handleRemoveDrug,
-  interactionState,
-  hasClerkKey
+  interactionState
 }: DashboardProps) => (
   <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
     {/* Top Navigation Bar */}
@@ -123,12 +106,6 @@ const Dashboard = ({
             <ShieldCheck className="h-3.5 w-3.5" />
             {interactionState.isOffline ? 'Offline-First' : 'Hybrid-Cloud'}
           </div>
-          {hasClerkKey && (
-            <Suspense fallback={<div className="w-8 h-8 rounded-full bg-slate-100 animate-pulse" />}>
-              <div className="h-8 w-px bg-slate-200 mx-2" />
-              <UserButtonWrapper afterSignOutUrl="/" />
-            </Suspense>
-          )}
         </div>
       </div>
     </header>
@@ -203,11 +180,9 @@ const Dashboard = ({
 
 function App() {
   console.log("App: Rendering Start");
+  const [isLaunched, setIsLaunched] = useState(false);
   const [selectedDrugs, setSelectedDrugs] = useState<Drug[]>([]);
   const [selectedInteraction, setSelectedInteraction] = useState<Interaction | null>(null);
-
-  const clerkKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-  const hasClerkKey = !!clerkKey && clerkKey.startsWith('pk_');
 
   const handleDrugUpdate = (drugName: string, updates: Partial<Drug>) => {
     setSelectedDrugs(prev => prev.map(drug => 
@@ -236,27 +211,34 @@ function App() {
     setSelectedInteraction,
     handleAddDrug,
     handleRemoveDrug,
-    interactionState,
-    hasClerkKey
+    interactionState
   };
 
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center gap-4">
-        <Loader2 className="h-12 w-12 text-blue-600 animate-spin" />
-        <span className="text-white text-xs font-black uppercase tracking-widest animate-pulse">Initializing Clinical Engine...</span>
-      </div>
-    }>
-      <ClerkAuth hasClerkKey={hasClerkKey}>
-        <Dashboard {...dashboardProps} />
-      </ClerkAuth>
-    </Suspense>
+    <AnimatePresence mode="wait">
+      {!isLaunched ? (
+        <motion.div
+          key="landing"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="h-full w-full"
+        >
+          <LandingPage onLaunch={() => setIsLaunched(true)} />
+        </motion.div>
+      ) : (
+        <motion.div
+          key="dashboard"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="h-full w-full"
+        >
+          <Dashboard {...dashboardProps} />
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
-
-// Fallback loader icon
-const Loader2 = ({ className }: { className?: string }) => (
-  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-);
 
 export default App;
