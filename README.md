@@ -92,7 +92,7 @@ The application is a Single Page Application (SPA). The logic resides entirely o
 4. UI updates the visual network and displays risk cards.
 
 ## 12. Demo & Video
-- **Live Demo Link**: 
+- **Live Demo Link**: https://hackathon-lemon-alpha.vercel.app/
 - **Demo Video Link**: 
 - **GitHub Repository**: https://github.com/anmolsherawat/hackathon
 
