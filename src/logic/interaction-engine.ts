@@ -49,7 +49,11 @@ export class InteractionEngine {
         );
 
         if (interaction) {
-          activeInteractions.push(interaction);
+          activeInteractions.push({
+            ...interaction,
+            confidence: 100,
+            sourceLabel: 'Local DB'
+          });
         }
       }
     }

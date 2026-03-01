@@ -5,100 +5,180 @@
       "name": "Aspirin",
       "class": "NSAID / Antiplatelet",
       "standard_dosage": "81mg - 325mg daily",
-      "description": "Used to reduce pain, fever, or inflammation and as a blood thinner."
+      "description": "Used to reduce pain, fever, or inflammation and as a blood thinner.",
+      "indication": "Pain relief, fever reduction, and cardiovascular protection.",
+      "boxed_warning": "Reye's syndrome in children; increased risk of serious GI bleeding."
     },
     {
       "id": "2",
       "name": "Warfarin",
       "class": "Anticoagulant",
       "standard_dosage": "2mg - 10mg daily",
-      "description": "Blood thinner used to prevent blood clots."
+      "description": "Blood thinner used to prevent blood clots.",
+      "indication": "Prophylaxis and treatment of venous thrombosis and pulmonary embolism.",
+      "boxed_warning": "Fatal or nonfatal bleeding; regular INR monitoring is mandatory."
     },
     {
       "id": "3",
       "name": "Ibuprofen",
       "class": "NSAID",
       "standard_dosage": "200mg - 800mg every 6-8 hours",
-      "description": "Used for pain relief and reducing inflammation."
+      "description": "Used for pain relief and reducing inflammation.",
+      "indication": "Mild to moderate pain, inflammation, and fever.",
+      "boxed_warning": "Cardiovascular thrombotic events; serious gastrointestinal bleeding and ulceration."
     },
     {
       "id": "4",
       "name": "Lisinopril",
       "class": "ACE Inhibitor",
       "standard_dosage": "10mg - 40mg daily",
-      "description": "Used to treat high blood pressure and heart failure."
+      "description": "Used to treat high blood pressure and heart failure.",
+      "indication": "Hypertension, heart failure, and post-myocardial infarction.",
+      "boxed_warning": "Fetal toxicity; discontinue as soon as pregnancy is detected."
     },
     {
       "id": "5",
       "name": "Simvastatin",
       "class": "Statin",
       "standard_dosage": "10mg - 40mg evening",
-      "description": "Used to lower cholesterol and prevent cardiovascular disease."
+      "description": "Used to lower cholesterol and prevent cardiovascular disease.",
+      "indication": "Hyperlipidemia and reduction of cardiovascular risk.",
+      "boxed_warning": "Myopathy and rhabdomyolysis risk, especially at high doses or with interacting drugs."
     },
     {
       "id": "6",
       "name": "Metformin",
       "class": "Biguanide",
       "standard_dosage": "500mg - 2000mg daily",
-      "description": "First-line medication for the treatment of type 2 diabetes."
+      "description": "First-line medication for the treatment of type 2 diabetes.",
+      "indication": "Type 2 diabetes mellitus glycemic control.",
+      "boxed_warning": "Lactic acidosis; risk increases with renal impairment and sepsis."
     },
     {
       "id": "7",
       "name": "Spironolactone",
       "class": "Potassium-sparing diuretic",
       "standard_dosage": "25mg - 100mg daily",
-      "description": "Used to treat fluid build-up and high blood pressure."
+      "description": "Used to treat fluid build-up and high blood pressure.",
+      "indication": "Edema, hypertension, and primary hyperaldosteronism.",
+      "boxed_warning": "Tumorigenic potential in chronic animal studies."
     },
     {
       "id": "8",
       "name": "Digoxin",
       "class": "Cardiac glycoside",
       "standard_dosage": "0.125mg - 0.25mg daily",
-      "description": "Used to treat heart failure and certain heart rhythm problems."
+      "description": "Used to treat heart failure and certain heart rhythm problems.",
+      "indication": "Congestive heart failure and atrial fibrillation.",
+      "boxed_warning": "Digitalis toxicity risk; monitor serum levels and electrolytes."
+    },
+    {
+      "id": "9",
+      "name": "Amiodarone",
+      "class": "Antiarrhythmic",
+      "standard_dosage": "100mg - 400mg daily",
+      "description": "Used to treat and prevent certain types of serious, life-threatening ventricular arrhythmias.",
+      "indication": "Ventricular fibrillation and unstable ventricular tachycardia.",
+      "boxed_warning": "Pulmonary toxicity, hepatotoxicity, and proarrhythmic effects."
+    },
+    {
+      "id": "10",
+      "name": "Paxlovid",
+      "class": "Antiviral",
+      "standard_dosage": "300mg nirmatrelvir/100mg ritonavir twice daily",
+      "description": "Treatment of mild-to-moderate COVID-19 in adults and pediatric patients.",
+      "indication": "SARS-CoV-2 infection treatment in high-risk patients.",
+      "boxed_warning": "Significant drug-drug interaction potential via CYP3A inhibition."
+    },
+    {
+      "id": "11",
+      "name": "Sildenafil",
+      "class": "PDE5 Inhibitor",
+      "standard_dosage": "25mg - 100mg as needed",
+      "description": "Used for erectile dysfunction and pulmonary arterial hypertension.",
+      "indication": "Erectile dysfunction and PAH.",
+      "boxed_warning": "Co-administration with organic nitrates can cause life-threatening hypotension."
+    },
+    {
+      "id": "12",
+      "name": "Nitroglycerin",
+      "class": "Vasodilator / Nitrate",
+      "standard_dosage": "0.3mg - 0.6mg sublingual as needed",
+      "description": "Used to treat or prevent angina (chest pain).",
+      "indication": "Angina pectoris prophylaxis and treatment.",
+      "boxed_warning": "Do not use with PDE5 inhibitors (e.g., Sildenafil) due to risk of fatal blood pressure drop."
     }
   ],
   "interactions": [
     {
       "source": "1",
       "target": "2",
-      "severity": "Severe",
-      "description": "Increased risk of major bleeding. Monitor INR closely.",
-      "mechanism": "Pharmacodynamic synergism (antiplatelet + anticoagulant)."
+      "severity": "Contraindicated",
+      "description": "Critical bleeding risk. Aspirin inhibits platelet aggregation while Warfarin anticoagulates, creating a dangerous synergy.",
+      "mechanism": "Pharmacodynamic synergism (antiplatelet + anticoagulant).",
+      "clinical_action": "Avoid co-administration. If necessary, switch to a safer alternative or monitor INR daily.",
+      "confidence": 100,
+      "sourceLabel": "Local DB"
+    },
+    {
+      "source": "11",
+      "target": "12",
+      "severity": "Contraindicated",
+      "description": "Life-threatening hypotension. Nitrates and PDE5 inhibitors both increase cGMP, causing profound vasodilation.",
+      "mechanism": "Synergistic increase in cyclic GMP levels.",
+      "clinical_action": "Fatal interaction. Do not use Sildenafil within 24 hours of Nitroglycerin.",
+      "confidence": 100,
+      "sourceLabel": "Local DB"
     },
     {
       "source": "3",
       "target": "2",
       "severity": "Severe",
-      "description": "Significantly increases bleeding risk. Avoid if possible.",
-      "mechanism": "Pharmacodynamic synergism and GI mucosal injury."
-    },
-    {
-      "source": "1",
-      "target": "3",
-      "severity": "Moderate",
-      "description": "NSAID duplication. Ibuprofen may also interfere with Aspirin's antiplatelet effect.",
-      "mechanism": "Competitive inhibition of COX-1."
+      "description": "Significantly increases bleeding risk. NSAIDs also cause GI mucosal injury.",
+      "mechanism": "Pharmacodynamic synergism and GI mucosal injury.",
+      "clinical_action": "Avoid Ibuprofen; use Acetaminophen for pain relief if patient is on Warfarin.",
+      "confidence": 100,
+      "sourceLabel": "Local DB"
     },
     {
       "source": "4",
       "target": "7",
       "severity": "Severe",
-      "description": "Risk of life-threatening hyperkalemia (high potassium).",
-      "mechanism": "Additive potassium-retaining effects."
+      "description": "Risk of life-threatening hyperkalemia (dangerously high potassium).",
+      "mechanism": "Additive potassium-retaining effects.",
+      "clinical_action": "Monitor serum potassium levels weekly and adjust dosages accordingly.",
+      "confidence": 100,
+      "sourceLabel": "Local DB"
+    },
+    {
+      "source": "5",
+      "target": "9",
+      "severity": "Moderate",
+      "description": "Increased risk of myopathy and rhabdomyolysis (muscle toxicity).",
+      "mechanism": "Inhibition of CYP3A4-mediated metabolism of Simvastatin by Amiodarone.",
+      "clinical_action": "Limit Simvastatin dose to 20mg daily or switch to a non-CYP3A4 metabolized statin.",
+      "confidence": 100,
+      "sourceLabel": "Local DB"
+    },
+    {
+      "source": "10",
+      "target": "5",
+      "severity": "Contraindicated",
+      "description": "Paxlovid contains Ritonavir, which massively increases Simvastatin levels.",
+      "mechanism": "Strong CYP3A4 inhibition by Ritonavir component.",
+      "clinical_action": "Discontinue Simvastatin 12 hours before starting Paxlovid; resume 5 days after completion.",
+      "confidence": 100,
+      "sourceLabel": "Local DB"
     },
     {
       "source": "8",
       "target": "7",
       "severity": "Moderate",
       "description": "Spironolactone may decrease renal clearance of Digoxin.",
-      "mechanism": "Interference with tubular secretion."
-    },
-    {
-      "source": "5",
-      "target": "2",
-      "severity": "Moderate",
-      "description": "Simvastatin may slightly increase the anticoagulant effect of Warfarin.",
-      "mechanism": "Inhibition of CYP3A4-mediated metabolism of Warfarin (minor)."
+      "mechanism": "Interference with tubular secretion.",
+      "clinical_action": "Monitor Digoxin serum concentrations and adjust dose if needed.",
+      "confidence": 100,
+      "sourceLabel": "Local DB"
     }
   ]
 }

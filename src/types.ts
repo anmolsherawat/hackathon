@@ -4,6 +4,8 @@ export interface Drug {
   class: string;
   standard_dosage: string;
   description: string;
+  indication?: string;
+  boxed_warning?: string;
 }
 
 export type Severity = 'Low' | 'Moderate' | 'Severe' | 'Contraindicated';
@@ -14,6 +16,9 @@ export interface Interaction {
   severity: Severity;
   description: string;
   mechanism?: string;
+  clinical_action?: string;
+  confidence?: number;
+  sourceLabel?: 'Local DB' | 'OpenFDA' | 'AI-Augmented';
 }
 
 export interface Database {

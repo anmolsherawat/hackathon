@@ -23,15 +23,18 @@ export async function fetchMissingDrugData(drug1: string, drug2: string): Promis
 
     if (!result) return null;
 
-    // Extract interaction info from the label section
-    const interactionText = result.drug_interactions?.[0] || result.warnings?.[0] || 'Interaction information found in FDA labels.';
+    // Extract interaction info from the label section, prioritizing Boxed Warnings
+    const boxedWarning = result.boxed_warning?.[0];
+    const interactionText = boxedWarning || result.drug_interactions?.[0] || result.warnings?.[0] || 'Interaction information found in FDA labels.';
     
     return {
       source: drug1,
       target: drug2,
       severity: 'Moderate' as Severity, // Defaulting to Moderate for API fallback unless specified
       description: interactionText.slice(0, 300) + '...', // Truncate for UI
-      mechanism: 'Data retrieved from official FDA Labeling.'
+      mechanism: boxedWarning ? 'FDA BOXED WARNING: Data retrieved from official labeling.' : 'Data retrieved from official FDA Labeling.',
+      confidence: 90,
+      sourceLabel: 'OpenFDA'
     };
   } catch (error) {
     console.error('API Fallback Error:', error);
@@ -63,6 +66,8 @@ export async function fetchDrugMetadata(drugName: string): Promise<Partial<Drug>
     return {
       class: result.openfda?.pharm_class_epc?.[0] || 'Unknown Class',
       description: result.indications_and_usage?.[0]?.slice(0, 200) + '...' || 'No description available.',
+      indication: result.indications_and_usage?.[0]?.slice(0, 300) + '...',
+      boxed_warning: result.boxed_warning?.[0]?.slice(0, 500) + '...'
     };
   } catch (error) {
     console.error('API Metadata Error:', error);
