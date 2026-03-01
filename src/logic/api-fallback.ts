@@ -31,7 +31,9 @@ export async function fetchMissingDrugData(drug1: string, drug2: string): Promis
       source: drug1,
       target: drug2,
       severity: 'Moderate' as Severity, // Defaulting to Moderate for API fallback unless specified
-      description: interactionText.slice(0, 300) + '...', // Truncate for UI
+      description: interactionText 
+        ? interactionText.slice(0, 300) + '...' 
+        : 'Interaction information found in FDA labels.',
       mechanism: boxedWarning ? 'FDA BOXED WARNING: Data retrieved from official labeling.' : 'Data retrieved from official FDA Labeling.',
       confidence: 90,
       sourceLabel: 'OpenFDA'
@@ -65,9 +67,15 @@ export async function fetchDrugMetadata(drugName: string): Promise<Partial<Drug>
 
     return {
       class: result.openfda?.pharm_class_epc?.[0] || 'Unknown Class',
-      description: result.indications_and_usage?.[0]?.slice(0, 200) + '...' || 'No description available.',
-      indication: result.indications_and_usage?.[0]?.slice(0, 300) + '...',
-      boxed_warning: result.boxed_warning?.[0]?.slice(0, 500) + '...'
+      description: result.indications_and_usage?.[0] 
+        ? result.indications_and_usage[0].slice(0, 200) + '...' 
+        : 'No description available.',
+      indication: result.indications_and_usage?.[0] 
+        ? result.indications_and_usage[0].slice(0, 300) + '...' 
+        : undefined,
+      boxed_warning: result.boxed_warning?.[0] 
+        ? result.boxed_warning[0].slice(0, 500) + '...' 
+        : undefined
     };
   } catch (error) {
     console.error('API Metadata Error:', error);

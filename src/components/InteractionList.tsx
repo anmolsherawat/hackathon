@@ -97,7 +97,7 @@ export const InteractionList: React.FC<InteractionListProps> = ({ selectedDrugs,
               {drug.description}
             </p>
 
-            {drug.boxed_warning && (
+            {drug.boxed_warning && drug.boxed_warning.length > 5 && (
               <div className="bg-red-50 border border-red-100 p-3 rounded-xl mb-4">
                 <div className="text-[9px] font-black text-red-600 uppercase tracking-widest mb-1 flex items-center gap-1">
                   <ShieldAlert className="h-3 w-3" />
